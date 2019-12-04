@@ -12,7 +12,7 @@ const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT;
 
-require('./models');
+const routes = require('./routes');
 
 
 // --------------- MIDDLEWARE --------------- //
@@ -37,6 +37,8 @@ app.get('/', (req, res) => {
   res.send(`<h1>WAKE UP IT'S TIME TO SIN</h1>`)
 });
 
+// Skills routes
+app.use('/api/v1/skills', routes.skills);
 
 // Start server
 app.listen(PORT, 
