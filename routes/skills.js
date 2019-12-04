@@ -12,7 +12,7 @@ router.get('/:id', ctlr.skills.show);
 router.put('/:id', ctlr.skills.update);
 
 // Destroy Skill
-
+router.delete('/:id', ctlr.skills.destroy);
 
 
 module.exports = router;

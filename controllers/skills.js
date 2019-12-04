@@ -44,9 +44,26 @@ const update = async (req, res) => {
   }
 };
 
+// DELETE - Destroy Skill by ID
+const destroy = async (req, res) => {
+  try {
+    const destroyedSkill = await db.Skill.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      status: 200,
+      message: 'Skill deleted.',
+      data: destroyedSkill,
+    })
+  } catch (err) {
+    return res.status(500).json({
+      message: 'Something went wrong. Please try again.'
+    })
+  }
+}
+
 
 module.exports = {
   create,
   show,
   update,
+  destroy,
 };
