@@ -9,3 +9,10 @@ mongoose.connect(DB_URI, {
 })
   .then(() => console.log('MONGEEEEEESE ASSSEEEEEEMMMBLEE'))
   .catch((err) => console.log(err));
+
+module.exports = {
+  User: require('./User'),
+  Skill: require('./Skill'),
+  Goal: require('./Goal'),
+  LogTime: require('./LogTime'),
+};
