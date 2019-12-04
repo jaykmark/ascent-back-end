@@ -1,6 +1,8 @@
-const goalSchema = require('mongoose').Schema({
+const mongoose = require('mongoose');
+
+const goalSchema = mongoose.Schema({
   skill: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Skill',
     required: [true, 'Skill for goal is required,.'],
   },

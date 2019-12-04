@@ -1,4 +1,6 @@
-const skillSchema = require('mongoose').Schema({
+const mongoose = require('mongoose');
+
+const skillSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Skill name is required.']
@@ -7,10 +9,10 @@ const skillSchema = require('mongoose').Schema({
   totalMinutes: Number,
   notes: String,
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: [true, 'User for skill is required.']
   },
 });
 
-module.exports = mongoose.module('Skill', skillSchema);
+module.exports = mongoose.model('Skill', skillSchema);

@@ -1,6 +1,8 @@
-const logTimeSchema = require('mongoose').Schema({
+const mongoose = require('mongoose');
+
+const logTimeSchema = mongoose.Schema({
   skill: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Skill',
     required: [true, 'Skill required to log time.'],
   },
