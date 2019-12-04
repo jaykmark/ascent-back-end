@@ -1,14 +1,7 @@
 const router = require('express').Router();
 const ctlr = require('../controllers');
 
-// Create Skill
-router.post('/', ctlr.skills.create);
-
-// Read Skill
-
-// Update Skill
-
-// Destroy Skill
-
+// Sign Up to Create User
+router.post('/register', ctlr.auth.register);
 
 module.exports = router;

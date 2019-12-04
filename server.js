@@ -37,8 +37,15 @@ app.get('/', (req, res) => {
   res.send(`<h1>WAKE UP IT'S TIME TO SIN</h1>`)
 });
 
+// Users routes
+app.use('/api/v1/users', routes.users);
+
+// Auth routes
+app.use('/api/v1/auth', routes.auth);
+
 // Skills routes
 app.use('/api/v1/skills', routes.skills);
+
 
 // Start server
 app.listen(PORT, 
