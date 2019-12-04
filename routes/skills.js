@@ -6,9 +6,10 @@ const ctlr = require('../controllers');
 router.post('/', ctlr.skills.create);
 
 // Read Skill
-router.get('/:id', ctlr.skills.show)
+router.get('/:id', ctlr.skills.show);
 
 // Update Skill
+router.put('/:id', ctlr.skills.update);
 
 // Destroy Skill
 
