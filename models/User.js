@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const userSchema = mongoose.Schema({
   username: {
     type: String,
@@ -22,12 +23,13 @@ const userSchema = mongoose.Schema({
   }
 });
 
-// remove password in all json responses
+// Remove password in all json responses
 userSchema.set("toJSON", {
   transform: (doc, ret, opt) => {
     delete ret["password"];
     return ret;
   }
 });
+
 
 module.exports = mongoose.model('User', userSchema);
