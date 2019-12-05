@@ -54,7 +54,8 @@ app.use('/api/v1/users', routes.users);
 // Skills routes
 app.use('/api/v1/skills', routes.skills);
 
-
+// Goals routes
+app.use('/api/v1/goals', routes.goals);
 
 
 // --------------- START SERVER --------------- //

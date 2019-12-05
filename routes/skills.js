@@ -5,13 +5,16 @@ const ctlr = require('../controllers');
 // Create Skill
 router.post('/', ctlr.skills.create);
 
-// Read Skill
+// Index Skill by ID
+router.get('/', ctlr.skills.index);
+
+// Read Skill by ID
 router.get('/:id', ctlr.skills.show);
 
-// Update Skill
+// Update Skill by ID
 router.put('/:id', ctlr.skills.update);
 
-// Destroy Skill
+// Destroy Skill by ID
 router.delete('/:id', ctlr.skills.destroy);
 
 

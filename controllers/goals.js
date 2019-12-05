@@ -1,27 +1,29 @@
 const db = require('../models');
 
 
-// POST - Create Skill
-const create = (req, res) => {
-  db.Skill.create(req.body, (err, createdSkill) => {
-    if (err) return console.log(err);
-
-    res.json({
-      status: 201,
-      data: createdSkill,
-      dateRequested: new Date().toLocaleString()
+// POST - Create Goal
+const create = async (req, res) => {
+  try {
+    const createdGoal = await db.Goal.create(req.body)
+    res.status(200).json({
+      status: 200,
+      data: createdGoal,
     })
-  })
+  } catch (err) {
+    return res.status(500).json({
+      message: 'Something went wrong. Please try again.'
+    })
+  }
 };
 
-// GET - Index of All Skills
+// GET - Index of All Goals
 const index = async (req, res) => {
   try {
-    const allSkills = await db.Skill.find({});
+    const allGoals = await db.Goal.find({});
     res.status(200).json({
       status: 200,
-      count: allSkills.length,
-      data: allSkills,
+      count: allGoals.length,
+      data: allGoals,
     })
   } catch (err) {
     return res.status(500).json({
@@ -30,13 +32,13 @@ const index = async (req, res) => {
   }
 };
 
-// GET - Show Skill by ID
+// GET - Show Goal by ID
 const show = async (req, res) => {
   try {
-    const foundSkill = await db.Skill.findById(req.params.id);
+    const foundGoal = await db.Goal.findById(req.params.id);
     res.status(200).json({ 
       status: 200,
-      data: foundSkill,
+      data: foundGoal,
     })
   } catch (err) {
     return res.status(500).json({
@@ -45,13 +47,13 @@ const show = async (req, res) => {
   }
 };
 
-// PUT - Update Skill by ID
+// PUT - Update Goal by ID
 const update = async (req, res) => {
   try {
-    const updatedSkill = await db.Skill.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedGoal = await db.Goal.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json({
       status: 200,
-      data: updatedSkill,
+      data: updatedGoal,
     })
   } catch (err) {
     return res.status(500).json({
@@ -60,14 +62,14 @@ const update = async (req, res) => {
   }
 };
 
-// DELETE - Destroy Skill by ID
+// DELETE - Destroy Goal by ID
 const destroy = async (req, res) => {
   try {
-    const destroyedSkill = await db.Skill.findByIdAndDelete(req.params.id);
+    const destroyedGoal = await db.Goal.findByIdAndDelete(req.params.id);
     res.status(200).json({
       status: 200,
-      message: 'Skill deleted.',
-      data: destroyedSkill,
+      message: 'Goal deleted.',
+      data: destroyedGoal,
     })
   } catch (err) {
     return res.status(500).json({
