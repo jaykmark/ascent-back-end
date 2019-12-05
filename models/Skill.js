@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const skillSchema = mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Skill name is required.']
+    required: true,
   },
   description: String,
   totalMinutes: Number,
@@ -11,7 +11,7 @@ const skillSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: [true, 'User for skill is required.']
+    required: true,
   },
 });
 
