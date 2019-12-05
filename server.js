@@ -57,6 +57,9 @@ app.use('/api/v1/skills', routes.skills);
 // Goals routes
 app.use('/api/v1/goals', routes.goals);
 
+// Log Times routes
+app.use('/api/v1/logtimes', routes.logTimes);
+
 
 // --------------- START SERVER --------------- //
 app.listen(PORT, 

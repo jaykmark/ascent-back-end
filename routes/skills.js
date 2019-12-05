@@ -5,7 +5,7 @@ const ctlr = require('../controllers');
 // Create Skill
 router.post('/', ctlr.skills.create);
 
-// Index Skill by ID
+// Index of All Skills
 router.get('/', ctlr.skills.index);
 
 // Read Skill by ID

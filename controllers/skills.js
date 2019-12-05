@@ -2,16 +2,18 @@ const db = require('../models');
 
 
 // POST - Create Skill
-const create = (req, res) => {
-  db.Skill.create(req.body, (err, createdSkill) => {
-    if (err) return console.log(err);
-
-    res.json({
-      status: 201,
+const create = async (req, res) => {
+  try {
+    const createdSkill = await db.Skill.create(req.body)
+    res.status(200).json({
+      status: 200,
       data: createdSkill,
-      dateRequested: new Date().toLocaleString()
     })
-  })
+  } catch (err) {
+    return res.status(500).json({
+      message: 'Something went wrong. Please try again.'
+    })
+  }
 };
 
 // GET - Index of All Skills
@@ -66,7 +68,7 @@ const destroy = async (req, res) => {
     const destroyedSkill = await db.Skill.findByIdAndDelete(req.params.id);
     res.status(200).json({
       status: 200,
-      message: 'Skill deleted.',
+      message: 'Skill destroyed.',
       data: destroyedSkill,
     })
   } catch (err) {

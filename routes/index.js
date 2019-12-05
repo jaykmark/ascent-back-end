@@ -3,4 +3,5 @@ module.exports = {
   users: require('./users'),
   skills: require('./skills'),
   goals: require('./goals'),
+  logTimes: require('./logTimes'),
 };

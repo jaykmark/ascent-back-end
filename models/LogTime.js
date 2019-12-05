@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 
+
 const logTimeSchema = mongoose.Schema({
   skill: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Skill',
-    required: [true, 'Skill required to log time.'],
+    required: true,
   },
   minutes: {
     type: Number,
-    required: [true, 'Number of minutes required.'],
+    required: true,
   },
   date: {
     type: Date,
-    required: [true, 'Date required.'],
+    required: true,
     default: Date.now,
-  }
+  },
 });
-
+''
 module.exports = mongoose.model('LogTime', logTimeSchema);

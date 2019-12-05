@@ -68,7 +68,7 @@ const destroy = async (req, res) => {
     const destroyedGoal = await db.Goal.findByIdAndDelete(req.params.id);
     res.status(200).json({
       status: 200,
-      message: 'Goal deleted.',
+      message: 'Goal destroyed.',
       data: destroyedGoal,
     })
   } catch (err) {
