@@ -17,7 +17,7 @@ const index = (req, res) => {
 // GET - Show One User by ID
 const show = async (req, res) => {
   try {
-    const foundUser = await db.User.findById(req.params.id);
+    const foundUser = await db.User.findById(req.userId).populate('skills');
     res.status(200).json({
       status: 200,
       data: foundUser
@@ -30,8 +30,24 @@ const show = async (req, res) => {
   }
 };
 
+// PUT - Update User by ID
+const update = async (req, res) => {
+  try {
+    const updatedUser = await db.User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json({
+      status: 200,
+      data: updatedUser,
+    })
+  } catch (err) {
+    return res.status(500).json({
+      message: 'Something went wrong. Please try again.'
+    })
+  }
+};
+
 
 module.exports = {
   index,
   show,
+  update,
 };

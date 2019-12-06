@@ -114,6 +114,7 @@ const login = (req, res) => {
                 status: 200,
                 message: 'Login successful.',
                 signedJwt,
+                userId: foundUser._id
               })
             })
         } else {

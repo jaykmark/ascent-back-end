@@ -11,9 +11,10 @@ module.exports = (req, res, next) => {
     let verified = jwt.verify(token, process.env.SESSION_SECRET);
     console.log('payload', verified);
     req.userId = verified._id;
+    // Go on to next function in route
+    next();
   } else {
     res.sendStatus(403);
   }
-  // Go on to next function in route
-  next();
+
 };
