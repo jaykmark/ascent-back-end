@@ -5,6 +5,11 @@ const db = require('../models');
 const create = async (req, res) => {
   try {
     const createdSkill = await db.Skill.create(req.body)
+    // Find User by ID
+    const foundUser = await db.User.findById(req.body.user)
+    // Push ID of created skill into User's 'skills.'
+    foundUser.skills.push(createdSkill._id)
+    foundUser.save()
     res.status(200).json({
       status: 200,
       data: createdSkill,
