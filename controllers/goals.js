@@ -11,7 +11,10 @@ const create = async (req, res) => {
     foundSkill.save()
     res.status(200).json({
       status: 200,
-      data: createdGoal,
+      data: createdGoal.populate({
+        path: 'skill',
+        model: 'Skill',
+      }),
     })
   } catch (err) {
     return res.status(500).json({
