@@ -13,6 +13,10 @@ const skillSchema = mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  goals: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Goal'
+  },
 });
 
 module.exports = mongoose.model('Skill', skillSchema);

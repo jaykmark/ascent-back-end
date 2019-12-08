@@ -17,7 +17,17 @@ const index = (req, res) => {
 // GET - Show One User by ID
 const show = async (req, res) => {
   try {
-    const foundUser = await db.User.findById(req.userId).populate('skills');
+    const foundUser = await db.User.findById(req.userId).populate({
+      path:'skills',
+      populate: {
+        path: 'goals',
+        model: 'Goal',
+        populate: {
+          path: 'skill',
+          model: 'Skill',
+        }
+      }
+    });
     res.status(200).json({
       status: 200,
       data: foundUser
