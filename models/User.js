@@ -20,7 +20,13 @@ const userSchema = mongoose.Schema({
   signupDate: {
     type: Date,
     default: Date.now,
-  }
+  },
+  skills: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Skill'
+    }
+  ],
 });
 
 // Remove password in all json responses

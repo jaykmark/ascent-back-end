@@ -17,5 +17,6 @@ const logTimeSchema = mongoose.Schema({
     default: Date.now,
   },
 });
-''
+// check dates and compare to current date
+  // Array find to see where date == date, if found don't show it
 module.exports = mongoose.model('LogTime', logTimeSchema);

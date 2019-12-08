@@ -5,9 +5,15 @@ const db = require('../models');
 const create = async (req, res) => {
   try {
     const createdLogTime = await db.LogTime.create(req.body);
+    console.log(req.body)
+    // Find Skill by ID
+    const foundSkill = await db.Skill.findById(req.body.skill);
+    foundSkill.logTimes.push(createdLogTime._id)
+    foundSkill.totalMinutes += createdLogTime.minutes;
+    foundSkill.save()
     res.status(200).json({
       status: 200,
-      data: createdLogTime,
+      data: foundSkill,
     })
   } catch (err) {
     return res.status(500).json({

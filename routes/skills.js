@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const ctlr = require('../controllers');
+const authRequired = require('../middleware/authRequired');
 
 
 // Create Skill

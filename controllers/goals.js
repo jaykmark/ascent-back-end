@@ -5,9 +5,16 @@ const db = require('../models');
 const create = async (req, res) => {
   try {
     const createdGoal = await db.Goal.create(req.body)
+    // Find Skill By ID and Save
+    const foundSkill = await db.Skill.findById(req.body.skill)
+    foundSkill.goals = createdGoal._id
+    foundSkill.save()
     res.status(200).json({
       status: 200,
-      data: createdGoal,
+      data: createdGoal.populate({
+        path: 'skill',
+        model: 'Skill',
+      }),
     })
   } catch (err) {
     return res.status(500).json({
