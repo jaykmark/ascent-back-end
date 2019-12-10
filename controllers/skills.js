@@ -9,7 +9,7 @@ const create = async (req, res) => {
     const foundUser = await db.User.findById(req.body.user);
     // Push ID of created skill into User's 'skills.'
     foundUser.skills.push(createdSkill._id)
-    foundUser.save()
+    await foundUser.save()
     res.status(200).json({
       status: 200,
       data: createdSkill,
@@ -40,7 +40,7 @@ const index = async (req, res) => {
 // GET - Show Skill by ID
 const show = async (req, res) => {
   try {
-    const foundSkill = await db.Skill.findById(req.params.id).populate('logTimes');
+    const foundSkill = await db.Skill.findById(req.params.id).populate('logTimes goals');
     res.status(200).json({ 
       status: 200,
       data: foundSkill,

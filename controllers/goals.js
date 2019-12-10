@@ -4,28 +4,31 @@ const db = require('../models');
 // POST - Create Goal
 const create = async (req, res) => {
   try {
-    console.log(req.body)
     const createdGoal = await db.Goal.create(req.body)
-    db.Goal.findById(createdGoal._id)
-      .populate('skill')
-      .populate('logTimes')
-      .exec(async (err, foundGoal) => {
-        if (err) return res.status(500).json(err);
-
+    const foundCreatedGoal = await db.Goal.findById(createdGoal._id)
+      .populate({
+        path: 'skill',
+        populate: {
+          path: 'logTimes',
+          model: 'LogTime',
+        }
+      })
+      // .populate('logTimes')
+      // .exec(async (err, foundGoal) => {
+      //   if (err) return res.status(500).json(err);
         // createdGoal.populate({
         //   path:'skill',
         //   model: 'Skill'
         // });
-        console.log(createdGoal);
         // Find Skill By ID and Save
         const foundSkill = await db.Skill.findById(req.body.skill);
         foundSkill.goals = createdGoal._id;
-        foundSkill.save();
+        await foundSkill.save();
         res.status(200).json({
           status: 200,
-          data: foundGoal,
+          data: foundCreatedGoal,
         })
-      });
+      // });
   } catch (err) {
     return res.status(500).json({
       message: 'Something went wrong. Please try again.'
@@ -67,10 +70,20 @@ const show = async (req, res) => {
 // PUT - Update Goal by ID
 const update = async (req, res) => {
   try {
-    const updatedGoal = await db.Goal.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('skill');
+    const updatedGoal = await db.Goal.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const updatedGoalFound = await db.Goal.findById(req.params.id)
+    .populate({
+      path: 'skill',
+      model: 'Skill',
+      populate: {
+        path: 'logTimes',
+        model: 'LogTime',
+      }
+    })
+    console.log(updatedGoalFound)
     res.status(200).json({
       status: 200,
-      data: updatedGoal,
+      data: updatedGoalFound,
     })
   } catch (err) {
     return res.status(500).json({
