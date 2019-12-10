@@ -4,9 +4,9 @@ const db = require('../models');
 // POST - Create Skill
 const create = async (req, res) => {
   try {
-    const createdSkill = await db.Skill.create(req.body)
+    const createdSkill = await db.Skill.create(req.body);
     // Find User by ID
-    const foundUser = await db.User.findById(req.body.user)
+    const foundUser = await db.User.findById(req.body.user);
     // Push ID of created skill into User's 'skills.'
     foundUser.skills.push(createdSkill._id)
     foundUser.save()
@@ -40,7 +40,7 @@ const index = async (req, res) => {
 // GET - Show Skill by ID
 const show = async (req, res) => {
   try {
-    const foundSkill = await db.Skill.findById(req.params.id);
+    const foundSkill = await db.Skill.findById(req.params.id).populate('logTimes');
     res.status(200).json({ 
       status: 200,
       data: foundSkill,
@@ -55,7 +55,7 @@ const show = async (req, res) => {
 // PUT - Update Skill by ID
 const update = async (req, res) => {
   try {
-    const updatedSkill = await db.Skill.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedSkill = await db.Skill.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('logTimes');
     res.status(200).json({
       status: 200,
       data: updatedSkill,

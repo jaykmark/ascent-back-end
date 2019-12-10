@@ -18,13 +18,17 @@ const index = (req, res) => {
 const show = async (req, res) => {
   try {
     const foundUser = await db.User.findById(req.userId).populate({
-      path:'skills',
+      path: 'skills',
       populate: {
         path: 'goals',
         model: 'Goal',
         populate: {
           path: 'skill',
           model: 'Skill',
+          populate: {
+            path: 'logTimes',
+            model: 'LogTime',
+          }
         }
       }
     });

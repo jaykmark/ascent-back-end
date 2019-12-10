@@ -7,13 +7,24 @@ const create = async (req, res) => {
     const createdLogTime = await db.LogTime.create(req.body);
     console.log(req.body)
     // Find Skill by ID
-    const foundSkill = await db.Skill.findById(req.body.skill);
-    foundSkill.logTimes.push(createdLogTime._id)
+    const foundSkill = await db.Skill.findById(req.body.skill)
+    foundSkill.logTimes.push(createdLogTime._id);
     foundSkill.totalMinutes += createdLogTime.minutes;
     foundSkill.save()
+    const updatedFoundSkill = await db.Skill.findById(req.body.skill).populate({
+      path: 'goals',
+      populate: {
+        path: 'skill',
+        model: 'Skill',
+        populate: {
+          path: 'logTimes',
+          model: 'LogTime'
+        }
+      }
+    })
     res.status(200).json({
       status: 200,
-      data: foundSkill,
+      data: updatedFoundSkill,
     })
   } catch (err) {
     return res.status(500).json({

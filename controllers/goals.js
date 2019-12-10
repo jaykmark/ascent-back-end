@@ -4,15 +4,28 @@ const db = require('../models');
 // POST - Create Goal
 const create = async (req, res) => {
   try {
-    const createdGoal = await db.Goal.create(req.body).populate('skill');
-    // Find Skill By ID and Save
-    const foundSkill = await db.Skill.findById(req.body.skill);
-    foundSkill.goals = createdGoal._id;
-    foundSkill.save();
-    res.status(200).populate('skill').json({
-      status: 200,
-      data: createdGoal,
-    })
+    console.log(req.body)
+    const createdGoal = await db.Goal.create(req.body)
+    db.Goal.findById(createdGoal._id)
+      .populate('skill')
+      .populate('logTimes')
+      .exec(async (err, foundGoal) => {
+        if (err) return res.status(500).json(err);
+
+        // createdGoal.populate({
+        //   path:'skill',
+        //   model: 'Skill'
+        // });
+        console.log(createdGoal);
+        // Find Skill By ID and Save
+        const foundSkill = await db.Skill.findById(req.body.skill);
+        foundSkill.goals = createdGoal._id;
+        foundSkill.save();
+        res.status(200).json({
+          status: 200,
+          data: foundGoal,
+        })
+      });
   } catch (err) {
     return res.status(500).json({
       message: 'Something went wrong. Please try again.'
