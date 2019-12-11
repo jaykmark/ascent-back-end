@@ -5,17 +5,30 @@ const db = require('../models');
 const create = async (req, res) => {
   try {
     const createdGoal = await db.Goal.create(req.body)
-    // Find Skill By ID and Save
-    const foundSkill = await db.Skill.findById(req.body.skill)
-    foundSkill.goals = createdGoal._id
-    foundSkill.save()
-    res.status(200).json({
-      status: 200,
-      data: createdGoal.populate({
+    const foundCreatedGoal = await db.Goal.findById(createdGoal._id)
+      .populate({
         path: 'skill',
-        model: 'Skill',
-      }),
-    })
+        populate: {
+          path: 'logTimes',
+          model: 'LogTime',
+        }
+      })
+      // .populate('logTimes')
+      // .exec(async (err, foundGoal) => {
+      //   if (err) return res.status(500).json(err);
+        // createdGoal.populate({
+        //   path:'skill',
+        //   model: 'Skill'
+        // });
+        // Find Skill By ID and Save
+        const foundSkill = await db.Skill.findById(req.body.skill);
+        foundSkill.goals = createdGoal._id;
+        await foundSkill.save();
+        res.status(200).json({
+          status: 200,
+          data: foundCreatedGoal,
+        })
+      // });
   } catch (err) {
     return res.status(500).json({
       message: 'Something went wrong. Please try again.'
@@ -42,7 +55,7 @@ const index = async (req, res) => {
 // GET - Show Goal by ID
 const show = async (req, res) => {
   try {
-    const foundGoal = await db.Goal.findById(req.params.id);
+    const foundGoal = await db.Goal.findById(req.params.id).populate('skill');
     res.status(200).json({ 
       status: 200,
       data: foundGoal,
@@ -57,10 +70,20 @@ const show = async (req, res) => {
 // PUT - Update Goal by ID
 const update = async (req, res) => {
   try {
-    const updatedGoal = await db.Goal.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedGoal = await db.Goal.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const updatedGoalFound = await db.Goal.findById(req.params.id)
+    .populate({
+      path: 'skill',
+      model: 'Skill',
+      populate: {
+        path: 'logTimes',
+        model: 'LogTime',
+      }
+    })
+    console.log(updatedGoalFound)
     res.status(200).json({
       status: 200,
-      data: updatedGoal,
+      data: updatedGoalFound,
     })
   } catch (err) {
     return res.status(500).json({

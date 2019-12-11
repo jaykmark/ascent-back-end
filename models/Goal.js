@@ -4,7 +4,7 @@ const goalSchema = mongoose.Schema({
   skill: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Skill',
-    required: [true, 'Skill for goal is required,.'],
+    required: [true, 'Skill for goal is required.'],
   },
   description: String,
   completed: {

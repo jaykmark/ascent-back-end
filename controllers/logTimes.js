@@ -5,15 +5,41 @@ const db = require('../models');
 const create = async (req, res) => {
   try {
     const createdLogTime = await db.LogTime.create(req.body);
-    console.log(req.body)
     // Find Skill by ID
-    const foundSkill = await db.Skill.findById(req.body.skill);
-    foundSkill.logTimes.push(createdLogTime._id)
+    const foundSkill = await db.Skill.findById(createdLogTime.skill)
+    foundSkill.logTimes.push(createdLogTime._id);
     foundSkill.totalMinutes += createdLogTime.minutes;
-    foundSkill.save()
+    await foundSkill.save()
+    // foundSkill.populate({
+    //   path: 'goals',
+    //   model: 'Goal',
+    //   populate: {
+    //     path: 'skill',
+    //     model: 'Skill',
+    //     populate: {
+    //       path: 'logTimes',
+    //       model: 'LogTime',
+    //     }
+    //   }
+    // })
+    const updatedFoundSkill = await db.Skill.findById(createdLogTime.skill)
+      .populate('logTimes')
+      .populate({
+        path: 'goals',
+        model: 'Goal',
+        populate: {
+          path: 'skill',
+          model: 'Skill',
+          populate: {
+            path: 'logTimes',
+            model: 'LogTime',
+          }
+        }
+      });
+    console.log(updatedFoundSkill);
     res.status(200).json({
       status: 200,
-      data: foundSkill,
+      data: updatedFoundSkill,
     })
   } catch (err) {
     return res.status(500).json({
