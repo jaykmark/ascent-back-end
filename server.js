@@ -18,7 +18,7 @@ const routes = require('./routes');
 // --------------- MIDDLEWARE --------------- //
 // CORS
 const corsOptions = {
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000', 'https://ascent-app.herokuapp.com'],
   // This allows the session cookie to be sent back and forth
   credentials: true, 
   // some legacy browsers (IE11, various SmartTVs) choke on 204
