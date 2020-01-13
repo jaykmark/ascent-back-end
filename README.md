@@ -1,9 +1,9 @@
 # Ascent
-An application to track your skills. Add daily/weekly goals. See your progress over time.
+*An application to track your skills. Add daily/weekly goals. See your progress over time.*
 
-Live Site - https://ascent-app.herokuapp.com/
+**Live Site - https://ascent-app.herokuapp.com/**
 
-Front-End Repo - https://github.com/jaykmark/ascent-front-end
+**Front-End Repo - https://github.com/jaykmark/ascent-front-end**
   
 ## Technology Stack
 ### **React, Node.js, Express, Mongoose**
