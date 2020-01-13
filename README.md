@@ -10,7 +10,7 @@ Front-End Repo - https://github.com/jaykmark/ascent-front-end
 
 Other Tech: HTML/CSS, BootStrap, JWT, Chart.js
 
-## User Story
+## Description
 Hone your skills. Track your progress. This app is geared towards those that strive for personal development and want to log their progress. A user can add skills they would like to explore or skills they are already good at. Add a daily or weekly goal for that that skill and track your progress over the past week.
 
 ## Installation & Set Up
