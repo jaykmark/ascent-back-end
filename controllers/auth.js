@@ -77,7 +77,7 @@ const login = (req, res) => {
   }
   // Find User's account with username as the parameter
   db.User.findOne({ username: req.body.username })
-  // Pull password back in
+    // Pull password back in
     .select('+password')
     .exec((err, foundUser) => {
       if (err) {
@@ -107,16 +107,16 @@ const login = (req, res) => {
           const payload = {
             _id: foundUser._id
           }
-          // Sign JWT with User ID, session secret, setting it to last 1 hour.
+          // Sign JWT with User ID, session secret, setting it to last 7 days.
           jwt.sign(payload, process.env.SESSION_SECRET, {
-            expiresIn: '1h' }, (err, signedJwt) => {
-              return res.status(200).json({
-                status: 200,
-                message: 'Login successful.',
-                signedJwt,
-                userId: foundUser._id
-              })
+            expiresIn: '7d'
+          }, (err, signedJwt) => {
+            return res.status(200).json({
+              status: 200,
+              message: 'Login successful.',
+              signedJwt,
             })
+          })
         } else {
           return res.status(400).json({
             status: 400,
