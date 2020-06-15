@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const validate = require('../validation/register');
 const jwt = require('jsonwebtoken');
 
-
 // POST Register Route
 const register = (req, res) => {
   // Deconstructs errors from validate function, which is being imported from ../validations/register
@@ -109,7 +108,7 @@ const login = (req, res) => {
           }
           // Sign JWT with User ID, session secret, setting it to last 7 days.
           jwt.sign(payload, process.env.SESSION_SECRET, {
-            expiresIn: '7d'
+            expiresIn: '30d'
           }, (err, signedJwt) => {
             return res.status(200).json({
               status: 200,
